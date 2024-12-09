@@ -1,44 +1,61 @@
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 
 interface Writer {
   id: string;
   name: string;
   description: string;
   image: string;
+  isFree: boolean;
 }
 
 const writers: Writer[] = [
+  // Free Writers (Top 5)
   {
     id: "1",
-    name: "Ernest Hemingway",
-    description: "Known for concise, understated writing style",
-    image: "/placeholder.svg",
+    name: "Seth Godin",
+    description: "Marketing guru, bestselling author",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+    isFree: true,
   },
   {
     id: "2",
-    name: "Virginia Woolf",
-    description: "Stream of consciousness narrative style",
-    image: "/placeholder.svg",
+    name: "Gary Vaynerchuk",
+    description: "Digital marketing pioneer, entrepreneur",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+    isFree: true,
   },
   {
     id: "3",
-    name: "George Orwell",
-    description: "Clear, direct political writing",
-    image: "/placeholder.svg",
+    name: "Simon Sinek",
+    description: "Leadership expert, motivational speaker",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    isFree: true,
   },
   {
     id: "4",
-    name: "Jane Austen",
-    description: "Witty, romantic social commentary",
-    image: "/placeholder.svg",
+    name: "Marie Forleo",
+    description: "Business and life coach",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+    isFree: true,
   },
   {
     id: "5",
-    name: "Mark Twain",
-    description: "Humorous, satirical storytelling",
-    image: "/placeholder.svg",
+    name: "Tim Ferriss",
+    description: "Productivity expert, podcast host",
+    image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
+    isFree: true,
   },
+  // Premium Writers (Next 45)
+  {
+    id: "6",
+    name: "Malcolm Gladwell",
+    description: "Bestselling author, journalist",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+    isFree: false,
+  },
+  // ... Add more premium writers here
 ];
 
 interface WriterSelectorProps {
@@ -63,15 +80,22 @@ const WriterSelector = ({ selectedWriter, onSelect }: WriterSelectorProps) => {
               onClick={() => onSelect(writer.id)}
             >
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full bg-primary-100">
+                <div className="w-12 h-12 rounded-full overflow-hidden">
                   <img
                     src={writer.image}
                     alt={writer.name}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">{writer.name}</h3>
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2">
+                    <h3 className="font-semibold text-gray-900">{writer.name}</h3>
+                    {writer.isFree && (
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        Free
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-sm text-gray-500">{writer.description}</p>
                 </div>
               </div>

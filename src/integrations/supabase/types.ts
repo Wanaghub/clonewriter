@@ -17,8 +17,10 @@ export type Database = {
           id: string
           is_active: boolean | null
           password_hash: string
+          subscription_end_date: string | null
           subscription_start_date: string | null
           subscription_status: string | null
+          subscription_tier: string | null
           trial_end_date: string | null
           trial_start_date: string | null
         }
@@ -29,8 +31,10 @@ export type Database = {
           id?: string
           is_active?: boolean | null
           password_hash: string
+          subscription_end_date?: string | null
           subscription_start_date?: string | null
           subscription_status?: string | null
+          subscription_tier?: string | null
           trial_end_date?: string | null
           trial_start_date?: string | null
         }
@@ -41,8 +45,10 @@ export type Database = {
           id?: string
           is_active?: boolean | null
           password_hash?: string
+          subscription_end_date?: string | null
           subscription_start_date?: string | null
           subscription_status?: string | null
+          subscription_tier?: string | null
           trial_end_date?: string | null
           trial_start_date?: string | null
         }

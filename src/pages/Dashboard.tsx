@@ -12,21 +12,46 @@ import { toast } from "sonner";
 const Dashboard = () => {
   const navigate = useNavigate();
   
-  const { data: subscriptionData, isLoading } = useQuery({
+  const { data: subscriptionData, isLoading, error } = useQuery({
     queryKey: ['subscription'],
     queryFn: async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user?.id) throw new Error('No user found');
       
-      const { data, error } = await supabase
+      // First try to get the user data
+      const { data, error: fetchError } = await supabase
         .from('users')
         .select('subscription_status, subscription_tier, credits, trial_end_date, subscription_end_date')
         .eq('id', session.user.id)
-        .single();
-      
-      if (error) throw error;
+        .maybeSingle(); // Use maybeSingle() instead of single()
+
+      // If no data exists, create a new user record
+      if (!data && !fetchError) {
+        const { data: newUser, error: insertError } = await supabase
+          .from('users')
+          .insert([
+            {
+              id: session.user.id,
+              email: session.user.email,
+              subscription_status: 'trial',
+              subscription_tier: 'free',
+              credits: 0,
+              trial_start_date: new Date(),
+              trial_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+              is_active: true
+            }
+          ])
+          .select()
+          .single();
+
+        if (insertError) throw insertError;
+        return newUser;
+      }
+
+      if (fetchError) throw fetchError;
       return data;
-    }
+    },
+    retry: 1
   });
 
   useEffect(() => {
@@ -61,6 +86,11 @@ const Dashboard = () => {
       day: 'numeric'
     });
   };
+
+  if (error) {
+    toast.error("Failed to load subscription data");
+    console.error("Subscription data error:", error);
+  }
 
   return (
     <div className="min-h-screen flex flex-col">

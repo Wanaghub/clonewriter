@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Writers from "./pages/Writers";
 import FAQ from "./pages/FAQ";
 import Pricing from "./pages/Pricing";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/writers" element={<Writers />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

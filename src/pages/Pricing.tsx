@@ -10,10 +10,10 @@ const PricingPage = () => {
     {
       name: "Free Trial",
       price: "$0",
-      description: "Perfect for trying out the platform",
+      description: "Try all features free for 7 days",
       features: [
-        "10 free credits",
-        "Basic writer styles",
+        "Full access to all 100+ writer styles",
+        "100 credits to use",
         "Standard support",
         "7-day trial period"
       ],
@@ -21,34 +21,20 @@ const PricingPage = () => {
       popular: false
     },
     {
-      name: "Basic",
-      price: "$29",
+      name: "Premium",
+      price: "$19",
       period: "/month",
-      description: "For individual content creators",
+      description: "Full access to all features",
       features: [
+        "Access to 100+ top writer styles",
         "100 credits/month",
-        "All writer styles",
         "Priority support",
-        "Content history"
+        "Content history",
+        "Style customization",
+        "Advanced analytics"
       ],
       buttonText: "Get Started",
       popular: true
-    },
-    {
-      name: "Pro",
-      price: "$99",
-      period: "/month",
-      description: "For professional content teams",
-      features: [
-        "500 credits/month",
-        "All writer styles",
-        "24/7 Priority support",
-        "Advanced analytics",
-        "Team collaboration",
-        "Custom writer training"
-      ],
-      buttonText: "Contact Sales",
-      popular: false
     }
   ];
 
@@ -67,11 +53,11 @@ const PricingPage = () => {
               Simple, Transparent Pricing
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Choose the perfect plan for your content creation needs
+              Start with a 7-day free trial, then only $19/month for full access
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <Card 
                 key={plan.name}

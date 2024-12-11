@@ -23,24 +23,23 @@ const Dashboard = () => {
         .from('users')
         .select('subscription_status, subscription_tier, credits, trial_end_date, subscription_end_date')
         .eq('id', session.user.id)
-        .maybeSingle(); // Use maybeSingle() instead of single()
+        .maybeSingle();
 
       // If no data exists, create a new user record
       if (!data && !fetchError) {
         const { data: newUser, error: insertError } = await supabase
           .from('users')
-          .insert([
-            {
-              id: session.user.id,
-              email: session.user.email,
-              subscription_status: 'trial',
-              subscription_tier: 'free',
-              credits: 0,
-              trial_start_date: new Date(),
-              trial_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
-              is_active: true
-            }
-          ])
+          .insert({
+            id: session.user.id,
+            email: session.user.email || '',
+            password_hash: 'placeholder', // Required field but we don't use it since auth is handled by Supabase
+            subscription_status: 'trial',
+            subscription_tier: 'free',
+            credits: 0,
+            trial_start_date: new Date().toISOString(),
+            trial_end_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+            is_active: true
+          })
           .select()
           .single();
 

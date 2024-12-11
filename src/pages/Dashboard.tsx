@@ -5,11 +5,30 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, CreditCard } from "lucide-react";
+import { User, CreditCard, CheckCircle2, AlertCircle } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   
+  const { data: subscriptionData, isLoading } = useQuery({
+    queryKey: ['subscription'],
+    queryFn: async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user?.id) throw new Error('No user found');
+      
+      const { data, error } = await supabase
+        .from('users')
+        .select('subscription_status, subscription_tier, credits, trial_end_date, subscription_end_date')
+        .eq('id', session.user.id)
+        .single();
+      
+      if (error) throw error;
+      return data;
+    }
+  });
+
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -20,6 +39,28 @@ const Dashboard = () => {
     
     checkUser();
   }, [navigate]);
+
+  const getStatusColor = (status: string | null) => {
+    switch (status) {
+      case 'active':
+        return 'text-green-500';
+      case 'trial':
+        return 'text-blue-500';
+      case 'expired':
+        return 'text-red-500';
+      default:
+        return 'text-gray-500';
+    }
+  };
+
+  const formatDate = (date: string | null) => {
+    if (!date) return 'N/A';
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,12 +88,59 @@ const Dashboard = () => {
                 <div className="p-3 bg-primary-50 rounded-full">
                   <CreditCard className="w-6 h-6 text-primary-600" />
                 </div>
-                <h2 className="text-xl font-semibold">Subscription</h2>
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold">Subscription</h2>
+                  {subscriptionData?.subscription_status && (
+                    <span className={`inline-flex items-center gap-1 text-sm ${getStatusColor(subscriptionData.subscription_status)}`}>
+                      {subscriptionData.subscription_status === 'active' ? (
+                        <CheckCircle2 className="w-4 h-4" />
+                      ) : (
+                        <AlertCircle className="w-4 h-4" />
+                      )}
+                      {subscriptionData.subscription_status.charAt(0).toUpperCase() + subscriptionData.subscription_status.slice(1)}
+                    </span>
+                  )}
+                </div>
               </div>
-              <p className="text-gray-600 mb-4">View and manage your subscription plan</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/pricing')}>
-                Manage Plan
-              </Button>
+
+              {isLoading ? (
+                <p className="text-gray-600">Loading subscription details...</p>
+              ) : (
+                <>
+                  <div className="space-y-3 mb-4">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Plan</span>
+                      <span className="font-medium">{subscriptionData?.subscription_tier || 'Free'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Credits Remaining</span>
+                      <span className="font-medium">{subscriptionData?.credits || 0}</span>
+                    </div>
+                    {subscriptionData?.subscription_status === 'trial' && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Trial Ends</span>
+                        <span className="font-medium">{formatDate(subscriptionData?.trial_end_date)}</span>
+                      </div>
+                    )}
+                    {subscriptionData?.subscription_status === 'active' && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Next Billing Date</span>
+                        <span className="font-medium">{formatDate(subscriptionData?.subscription_end_date)}</span>
+                      </div>
+                    )}
+                  </div>
+                  <Button 
+                    variant="default" 
+                    className="w-full"
+                    onClick={() => {
+                      navigate('/pricing');
+                      toast.info("Choose a plan that suits your needs!");
+                    }}
+                  >
+                    {subscriptionData?.subscription_status === 'active' ? 'Manage Plan' : 'Upgrade Plan'}
+                  </Button>
+                </>
+              )}
             </Card>
           </div>
         </div>

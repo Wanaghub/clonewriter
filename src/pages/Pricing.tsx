@@ -10,10 +10,10 @@ const PricingPage = () => {
     {
       name: "Free Trial",
       price: "$0",
-      description: "Try all features free for 7 days",
+      description: "Try selected features free for 7 days",
       features: [
-        "Full access to all 100+ writer styles",
-        "100 credits to use",
+        "Access to 10 selected writer styles",
+        "50 credits for medium-length posts",
         "Standard support",
         "7-day trial period"
       ],
@@ -53,7 +53,7 @@ const PricingPage = () => {
               Simple, Transparent Pricing
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Start with a 7-day free trial, then only $19/month for full access
+              Start with a 7-day free trial, then upgrade for full access
             </p>
           </div>
 

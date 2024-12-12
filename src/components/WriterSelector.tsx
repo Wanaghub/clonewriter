@@ -11,7 +11,7 @@ interface Writer {
 }
 
 const writers: Writer[] = [
-  // Free Writers (Top 5)
+  // Free Writers (Top 10)
   {
     id: "1",
     name: "Seth Godin",
@@ -47,11 +47,46 @@ const writers: Writer[] = [
     image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
     isFree: true,
   },
-  // Premium Writers (Next 45)
   {
     id: "6",
     name: "Malcolm Gladwell",
     description: "Bestselling author, journalist",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+    isFree: true,
+  },
+  {
+    id: "7",
+    name: "Brené Brown",
+    description: "Research professor, author on vulnerability",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    isFree: true,
+  },
+  {
+    id: "8",
+    name: "James Clear",
+    description: "Author of Atomic Habits, productivity expert",
+    image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128",
+    isFree: true,
+  },
+  {
+    id: "9",
+    name: "Neil Patel",
+    description: "Digital marketing expert, entrepreneur",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+    isFree: true,
+  },
+  {
+    id: "10",
+    name: "Pat Flynn",
+    description: "Passive income expert, podcast host",
+    image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
+    isFree: true,
+  },
+  // Premium Writers (Next 90+)
+  {
+    id: "11",
+    name: "Daniel Pink",
+    description: "Bestselling author on business and behavior",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
     isFree: false,
   },

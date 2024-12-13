@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Star, Check, Lock } from "lucide-react";
+import { ArrowRight, Star, Lock, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { writers } from "@/data/writers";
 import { motion } from "framer-motion";
@@ -72,6 +72,46 @@ const Index = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-6">
+              Why Choose Our AI Writing Service?
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 text-left mb-12">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Learn from the Best
+                </h3>
+                <p className="text-gray-600">
+                  Access the writing styles of world-renowned thought leaders, bestselling authors, and business experts. Our AI has analyzed thousands of their works to capture their unique voice and insights.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Save Time & Energy
+                </h3>
+                <p className="text-gray-600">
+                  Stop spending hours trying to perfect your writing style. Our AI helps you create content that resonates with your audience in minutes, not days.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Unlimited Possibilities
+                </h3>
+                <p className="text-gray-600">
+                  From blog posts to social media content, create engaging content in any format. Each piece is unique and tailored to your needs while maintaining the essence of your chosen writer's style.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Risk-Free Trial
+                </h3>
+                <p className="text-gray-600">
+                  Start with our free writers and 50 credits. Experience the power of AI-driven content creation before upgrading to access our premium collection of world-class writers.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="text-center">

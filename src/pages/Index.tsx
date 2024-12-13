@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { writers } from "@/data/writers";
 import { motion } from "framer-motion";

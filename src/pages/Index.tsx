@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Star, Check } from "lucide-react";
+import { ArrowRight, Star, Check, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { writers } from "@/data/writers";
 import { motion } from "framer-motion";
@@ -18,7 +18,6 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        {/* Hero Section with Featured Writers */}
         <div className="container px-4 py-16 mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-6">
@@ -31,7 +30,6 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Featured Writers Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
             {featuredWriters.map((writer) => (
               <motion.div
@@ -57,10 +55,15 @@ const Index = () => {
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    {writer.isFree && (
+                    {writer.isFree ? (
                       <span className="flex items-center gap-1 rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">
                         <Star className="h-4 w-4" />
                         Free
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-800">
+                        <Lock className="h-4 w-4" />
+                        Premium
                       </span>
                     )}
                   </div>
@@ -71,7 +74,6 @@ const Index = () => {
             ))}
           </div>
 
-          {/* CTA Section */}
           <div className="text-center">
             <div className="flex items-center justify-center gap-x-6">
               <Button 
@@ -93,7 +95,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Features Section */}
         <div className="container px-4 mx-auto py-16 bg-gray-50">
           <div className="grid gap-8 md:grid-cols-3 max-w-4xl mx-auto">
             <div className="flex flex-col items-center p-6 text-center">

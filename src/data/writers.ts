@@ -7,13 +7,12 @@ export interface Writer {
 }
 
 export const writers: Writer[] = [
-  // Free Writers (Top 10)
   {
     id: "1",
     name: "Seth Godin",
     description: "Marketing guru, bestselling author of 'Purple Cow'",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "2",
@@ -27,7 +26,7 @@ export const writers: Writer[] = [
     name: "Simon Sinek",
     description: "Leadership expert, motivational speaker",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "4",
@@ -48,7 +47,7 @@ export const writers: Writer[] = [
     name: "Malcolm Gladwell",
     description: "Bestselling author, journalist",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "7",
@@ -62,7 +61,7 @@ export const writers: Writer[] = [
     name: "James Clear",
     description: "Author of Atomic Habits, productivity expert",
     image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "9",
@@ -78,7 +77,6 @@ export const writers: Writer[] = [
     image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
     isFree: true,
   },
-  // Premium Writers (Next 90)
   {
     id: "11",
     name: "Daniel Pink",

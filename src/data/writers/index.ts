@@ -5,7 +5,8 @@ import { productivityWriters } from './productivity-writers';
 import { thoughtLeaders } from './thought-leaders';
 import { businessCoaches } from './business-coaches';
 
-export { Writer } from './types';
+// Re-export the Writer type with the correct syntax
+export type { Writer } from './types';
 
 export const writers: Writer[] = [
   ...marketingWriters,

@@ -20,6 +20,6 @@ export const leadershipWriters: Writer[] = [
     name: "Robin Sharma",
     description: "Leadership and personal mastery expert",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-    isFree: true,
+    isFree: false,
   }
 ];

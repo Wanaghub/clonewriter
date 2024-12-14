@@ -20,13 +20,13 @@ export const marketingWriters: Writer[] = [
     name: "Neil Patel",
     description: "Digital marketing expert, entrepreneur",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "14",
     name: "Ann Handley",
     description: "Digital marketing pioneer, content expert",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-    isFree: true,
+    isFree: false,
   }
 ];

@@ -27,6 +27,6 @@ export const productivityWriters: Writer[] = [
     name: "David Allen",
     description: "Productivity expert, author of Getting Things Done",
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-    isFree: true,
+    isFree: false,
   }
 ];

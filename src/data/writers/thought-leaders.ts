@@ -13,7 +13,7 @@ export const thoughtLeaders: Writer[] = [
     name: "Brené Brown",
     description: "Research professor, author on vulnerability",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-    isFree: true,
+    isFree: false,
   },
   {
     id: "11",
@@ -27,6 +27,6 @@ export const thoughtLeaders: Writer[] = [
     name: "Adam Grant",
     description: "Organizational psychologist, bestselling author",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-    isFree: true,
+    isFree: false,
   }
 ];

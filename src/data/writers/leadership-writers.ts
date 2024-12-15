@@ -5,7 +5,7 @@ export const leadershipWriters: Writer[] = [
     id: "3",
     name: "Simon Sinek",
     description: "Leadership expert, motivational speaker",
-    image: "https://images.unsplash.com/photo-1548449112-96a38a643324",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
     isFree: false,
   },
   {

@@ -5,7 +5,7 @@ export const marketingWriters: Writer[] = [
     id: "1",
     name: "Seth Godin",
     description: "Marketing guru, bestselling author of 'Purple Cow'",
-    image: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad",
+    image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d",
     isFree: false,
   },
   {

@@ -8,10 +8,12 @@ import ContentForm from "@/components/ContentForm";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 const Writers = () => {
   const [selectedWriter, setSelectedWriter] = useState("");
   const [showUpgradeDialog, setShowUpgradeDialog] = useState(false);
+  const navigate = useNavigate();
 
   const { data: userData } = useQuery({
     queryKey: ['user'],
@@ -40,13 +42,21 @@ const Writers = () => {
       return;
     }
     
-    // Update credits in database
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.user?.id) {
-      await supabase
-        .from('users')
-        .update({ credits: (userData.credits - 10) })
-        .eq('id', session.user.id);
+    try {
+      // Update credits in database
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.id) {
+        await supabase
+          .from('users')
+          .update({ credits: (userData.credits - 10) })
+          .eq('id', session.user.id);
+      }
+
+      toast.success("Content generated successfully!");
+      navigate('/dashboard'); // Navigate back to dashboard after successful generation
+    } catch (error) {
+      toast.error("Failed to generate content");
+      console.error("Generation error:", error);
     }
   };
 
@@ -55,7 +65,12 @@ const Writers = () => {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">Generate Content</h1>
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold">Generate Content</h1>
+            <Button variant="outline" onClick={() => navigate('/dashboard')}>
+              Back to Dashboard
+            </Button>
+          </div>
           
           <div className="grid gap-8 md:grid-cols-2">
             <WriterSelector

@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, CreditCard, CheckCircle2, AlertCircle, PenTool } from "lucide-react";
+import { CreditCard, CheckCircle2, AlertCircle, PenTool } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
           .insert({
             id: session.user.id,
             email: session.user.email || '',
-            password_hash: 'placeholder', // Required field but we don't use it since auth is handled by Supabase
+            password_hash: 'placeholder',
             subscription_status: 'trial',
             subscription_tier: 'free',
             credits: 0,
@@ -112,20 +112,7 @@ const Dashboard = () => {
               </Button>
             </Card>
 
-            <Card className="p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-primary-50 rounded-full">
-                  <User className="w-6 h-6 text-primary-600" />
-                </div>
-                <h2 className="text-xl font-semibold">Profile & Settings</h2>
-              </div>
-              <p className="text-gray-600 mb-4">Manage your account settings, profile information, and preferences</p>
-              <Button variant="outline" className="w-full" onClick={() => navigate('/profile')}>
-                Manage Profile
-              </Button>
-            </Card>
-
-            <Card className="p-6 hover:shadow-lg transition-shadow col-span-2">
+            <Card className="p-6 hover:shadow-lg transition-shadow col-span-2 md:col-span-1">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-primary-50 rounded-full">
                   <CreditCard className="w-6 h-6 text-primary-600" />

@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import WriterSelector from "@/components/WriterSelector";
 import ContentForm from "@/components/ContentForm";
 import { toast } from "sonner";
@@ -42,9 +40,6 @@ const Writers = () => {
       return;
     }
     
-    // Here we would integrate with an AI service to generate content
-    toast.success("Content generated successfully!");
-    
     // Update credits in database
     const { data: { session } } = await supabase.auth.getSession();
     if (session?.user?.id) {
@@ -67,7 +62,10 @@ const Writers = () => {
               selectedWriter={selectedWriter}
               onSelect={setSelectedWriter}
             />
-            <ContentForm onGenerate={handleGenerate} />
+            <ContentForm 
+              onGenerate={handleGenerate} 
+              selectedWriter={selectedWriter}
+            />
           </div>
         </div>
       </main>

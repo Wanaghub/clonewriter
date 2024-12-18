@@ -1,17 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ContentFormProps {
   onGenerate: (topic: string) => void;
+  selectedWriter: string;
 }
 
-const ContentForm = ({ onGenerate }: ContentFormProps) => {
+const ContentForm = ({ onGenerate, selectedWriter }: ContentFormProps) => {
   const [topic, setTopic] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedContent, setGeneratedContent] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onGenerate(topic);
+    
+    if (!selectedWriter) {
+      toast.error("Please select a writer first");
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-with-gemini', {
+        body: { prompt: topic, writerId: selectedWriter }
+      });
+
+      if (error) throw error;
+      
+      setGeneratedContent(data.generatedText);
+      toast.success("Content generated successfully!");
+      onGenerate(topic);
+    } catch (error) {
+      console.error('Error generating content:', error);
+      toast.error("Failed to generate content. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -32,11 +59,20 @@ const ContentForm = ({ onGenerate }: ContentFormProps) => {
         <Button
           type="submit"
           className="w-full bg-primary-600 hover:bg-primary-700"
-          disabled={!topic.trim()}
+          disabled={!topic.trim() || isGenerating}
         >
-          Generate Content (10 Credits)
+          {isGenerating ? "Generating..." : "Generate Content (10 Credits)"}
         </Button>
       </form>
+      
+      {generatedContent && (
+        <div className="mt-6">
+          <h3 className="text-lg font-semibold mb-2">Generated Content:</h3>
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <p className="whitespace-pre-wrap">{generatedContent}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

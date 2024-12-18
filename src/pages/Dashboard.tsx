@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, CreditCard, CheckCircle2, AlertCircle } from "lucide-react";
+import { User, CreditCard, CheckCircle2, AlertCircle, PenTool } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -102,6 +102,19 @@ const Dashboard = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-primary-50 rounded-full">
+                  <PenTool className="w-6 h-6 text-primary-600" />
+                </div>
+                <h2 className="text-xl font-semibold">Content Generation</h2>
+              </div>
+              <p className="text-gray-600 mb-4">Generate unique content with AI-powered writers tailored to your needs</p>
+              <Button variant="default" className="w-full" onClick={() => navigate('/writers')}>
+                Access Writers
+              </Button>
+            </Card>
+
+            <Card className="p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-primary-50 rounded-full">
                   <User className="w-6 h-6 text-primary-600" />
                 </div>
                 <h2 className="text-xl font-semibold">Profile & Settings</h2>
@@ -112,7 +125,7 @@ const Dashboard = () => {
               </Button>
             </Card>
 
-            <Card className="p-6 hover:shadow-lg transition-shadow">
+            <Card className="p-6 hover:shadow-lg transition-shadow col-span-2">
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-primary-50 rounded-full">
                   <CreditCard className="w-6 h-6 text-primary-600" />

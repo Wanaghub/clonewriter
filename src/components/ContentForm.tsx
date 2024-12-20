@@ -7,9 +7,10 @@ import { supabase } from "@/integrations/supabase/client";
 interface ContentFormProps {
   onGenerate: (topic: string) => void;
   selectedWriter: string;
+  credits?: number;
 }
 
-const ContentForm = ({ onGenerate, selectedWriter }: ContentFormProps) => {
+const ContentForm = ({ onGenerate, selectedWriter, credits = 0 }: ContentFormProps) => {
   const [topic, setTopic] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState("");
@@ -19,6 +20,11 @@ const ContentForm = ({ onGenerate, selectedWriter }: ContentFormProps) => {
     
     if (!selectedWriter) {
       toast.error("Please select a writer first");
+      return;
+    }
+
+    if (credits < 10) {
+      toast.error("Not enough credits. Please upgrade your plan.");
       return;
     }
 
@@ -59,9 +65,9 @@ const ContentForm = ({ onGenerate, selectedWriter }: ContentFormProps) => {
         <Button
           type="submit"
           className="w-full bg-primary-600 hover:bg-primary-700"
-          disabled={!topic.trim() || isGenerating}
+          disabled={!topic.trim() || isGenerating || credits < 10}
         >
-          {isGenerating ? "Generating..." : "Generate Content (10 Credits)"}
+          {isGenerating ? "Generating..." : `Generate Content (10/${credits} Credits)`}
         </Button>
       </form>
       

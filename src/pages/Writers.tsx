@@ -37,26 +37,23 @@ const Writers = () => {
       return;
     }
     
-    if (!userData?.credits || userData.credits < 10) {
-      toast.error("Not enough credits. Please upgrade your plan.");
-      return;
-    }
-    
     try {
       // Update credits in database
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user?.id) {
-        await supabase
+        const { error } = await supabase
           .from('users')
-          .update({ credits: (userData.credits - 10) })
+          .update({ credits: (userData?.credits || 0) - 10 })
           .eq('id', session.user.id);
+
+        if (error) throw error;
       }
 
       toast.success("Content generated successfully!");
-      navigate('/dashboard'); // Navigate back to dashboard after successful generation
+      navigate('/dashboard');
     } catch (error) {
-      toast.error("Failed to generate content");
-      console.error("Generation error:", error);
+      toast.error("Failed to update credits");
+      console.error("Credits update error:", error);
     }
   };
 
@@ -80,6 +77,7 @@ const Writers = () => {
             <ContentForm 
               onGenerate={handleGenerate} 
               selectedWriter={selectedWriter}
+              credits={userData?.credits || 0}
             />
           </div>
         </div>
